@@ -75,13 +75,8 @@ void requestUserPermission(bool isAllowed, BuildContext context,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Image.asset(
-          //   'assets/images/animated-bell.gif',
-          //   height: 200,
-          //   fit: BoxFit.fitWidth,
-          // ),
           Text(
-            'Allow Awesome Notifications to send you beautiful notifications!',
+            'Allow RemindMe to send you notifications!',
             textAlign: TextAlign.center,
           ),
         ],

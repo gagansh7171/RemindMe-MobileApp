@@ -64,7 +64,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: Text('RemindMe'),
+        actions: <Widget>[
+          IconButton(
+            color: Colors.white,
+            icon: const Icon(Icons.add),
+            tooltip: 'Add New Reminder',
+            onPressed: _addReminder,
+          ),
+          IconButton(
+            color: Colors.white,
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Notification Settings',
+            onPressed: () => requestUserPermission(false, context, setState, notificationsAllowed),
+          ),
+        ],
       ),
       body: loading
           ? Center(
@@ -73,11 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )
           : ReminderList(_reminders, setState),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addReminder,
-        tooltip: 'Add New Reminder',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
