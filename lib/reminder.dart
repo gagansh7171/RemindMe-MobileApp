@@ -95,7 +95,7 @@ class DatabaseHelper {
           reminder.title,
           reminder.date.toString(),
           reminder.desc,
-          reminder.toggle,
+          reminder.toggle ? 1 : 0,
           id
         ]);
   }

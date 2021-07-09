@@ -3,7 +3,9 @@ import './reminder.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-void cancelNotification(int id){
+DatabaseHelper helper = DatabaseHelper.instance;
+
+void cancelNotification(int id) {
   AwesomeNotifications().cancelSchedule(id);
 }
 
@@ -12,19 +14,17 @@ Future<void> showNotificationAtScheduleCron(Reminder reminder) async {
       content: NotificationContent(
         id: reminder.id,
         channelKey: 'scheduled',
-        title: reminder.title,
+        title: '<b>${reminder.title}</b>',
         body:
-            '${reminder.desc} at  ${DateFormat.jm().format(reminder.date)}, ${DateFormat.yMMMd().format(reminder.date)} ',
-        notificationLayout: NotificationLayout.BigPicture,
+            '${reminder.desc} <br/>  <i>${DateFormat.jm().format(reminder.date)}, ${DateFormat.yMMMd().format(reminder.date)}</i> ',
+        notificationLayout: NotificationLayout.BigText,
         payload: {'uuid': 'uuid-test'},
         autoCancel: false,
       ),
       actionButtons: [
         NotificationActionButton(
-            key: 'SNOOZE', label: 'SNOOZE', autoCancel: true),
-        NotificationActionButton(
           key: 'STOP',
-          label: 'STOP',
+          label: 'Mark as Done',
           autoCancel: true,
         )
       ],
@@ -32,19 +32,22 @@ Future<void> showNotificationAtScheduleCron(Reminder reminder) async {
 }
 
 void initReminder() {
-  AwesomeNotifications().initialize(
-      'resource://drawable/res_flutter_icon',
-      [
-        NotificationChannel(
-            channelKey: 'scheduled',
-            channelName: 'Scheduled notifications',
-            channelDescription: 'Notifications with schedule functionality',
-            defaultColor: Colors.blue,
-            ledColor: Colors.blue,
-            vibrationPattern: lowVibrationPattern,
-            importance: NotificationImportance.High,
-            defaultRingtoneType: DefaultRingtoneType.Alarm),
-      ]);
+  AwesomeNotifications().initialize('resource://drawable/res_flutter_icon', [
+    NotificationChannel(
+        channelKey: 'scheduled',
+        channelName: 'Scheduled notifications',
+        channelDescription: 'Notifications with schedule functionality',
+        defaultColor: Colors.blue,
+        ledColor: Colors.blue,
+        vibrationPattern: lowVibrationPattern,
+        importance: NotificationImportance.High,
+        defaultRingtoneType: DefaultRingtoneType.Alarm),
+  ]);
+
+  AwesomeNotifications().actionStream.listen((receivedNotification) {
+    int? id = receivedNotification.id;
+    if (id != null) helper.toggleReminder(id, false);
+  });
 }
 
 void checkPermission(
