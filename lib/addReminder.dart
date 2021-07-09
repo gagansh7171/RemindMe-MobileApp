@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import './reminder.dart';
+import './notificationUtils.dart';
 
 class AddReminder extends StatefulWidget {
   AddReminder(this._reminders, this._add, {this.editIndex = -1, Key? key})
@@ -30,15 +31,19 @@ class _AddReminderState extends State<AddReminder> {
       if (widget.editIndex == -1) {
         int? id = await helper.insert(reminder);
         reminder.id = id;
+        showNotificationAtScheduleCron(reminder);
         widget._add(() {
           widget._reminders?.add(reminder);
         });
         Navigator.pop(context);
       } else {
         await helper.update(reminder, widget._reminders![widget.editIndex].id);
+        reminder.id = widget._reminders![widget.editIndex].id;
         widget._add(() {
           widget._reminders![widget.editIndex] = reminder;
         });
+        cancelNotification(widget._reminders![widget.editIndex].id);
+        showNotificationAtScheduleCron(widget._reminders![widget.editIndex]);
         Navigator.pop(context);
       }
     }
@@ -58,7 +63,8 @@ class _AddReminderState extends State<AddReminder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Reminder'),
+        title:
+            Text(widget.editIndex != -1 ? 'Update Reminder' : 'Add Reminder'),
       ),
       body: Container(
         padding: EdgeInsets.all(15),

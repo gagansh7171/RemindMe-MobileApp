@@ -89,7 +89,7 @@ class DatabaseHelper {
 
   Future update(Reminder reminder, int id) async {
     Database? db = await database;
-    int? count = await db?.rawUpdate(
+    await db?.rawUpdate(
         'UPDATE $tableReminders SET $columnTitle = ?, $columnDate = ?, $columnDesc = ?, $columnToggle = ? WHERE $columnId = ?',
         [
           reminder.title,
@@ -98,12 +98,19 @@ class DatabaseHelper {
           reminder.toggle,
           id
         ]);
-    print(count);
+  }
+
+  Future toggleReminder(int id, bool val) async {
+    int setValue = val ? 1 : 0;
+    Database? db = await database;
+    await db?.rawUpdate(
+        'UPDATE $tableReminders SET  $columnToggle = ? WHERE $columnId = ?',
+        [setValue, id]);
   }
 
   Future delete(int id) async {
     Database? db = await database;
-    int? count = await db
+    await db
         ?.rawDelete('DELETE from $tableReminders WHERE $columnId = ?', [id]);
   }
 

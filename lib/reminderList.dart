@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import './addReminder.dart';
+import './reminder.dart';
+import './notificationUtils.dart';
 
 class ReminderList extends StatelessWidget {
+  final DatabaseHelper helper = DatabaseHelper.instance;
   final _reminders;
   final Function change;
-  const ReminderList(this._reminders, this.change, {Key? key})
-      : super(key: key);
+  ReminderList(this._reminders, this.change, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +55,20 @@ class ReminderList extends StatelessWidget {
             Switch(
               value: _reminders[index].toggle,
               onChanged: (bool val) {
+                if( !val ) cancelNotification(_reminders[index].id);
+                else {
+                  showNotificationAtScheduleCron(_reminders[index]);
+                }
+                helper.toggleReminder(_reminders[index].id, val);
                 change(() {
-                  _reminders[index].toggle = !_reminders[index].toggle;
+                  _reminders[index].toggle = val;
                 });
               },
             ),
             IconButton(
                 onPressed: () {
+                  helper.delete(_reminders[index].id);
+                  cancelNotification(_reminders[index].id);
                   change(() {
                     _reminders.removeAt(index);
                   });

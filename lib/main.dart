@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:reminder_app/notificationUtils.dart';
 import './reminder.dart';
 import './reminderList.dart';
 import './addReminder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
+  initReminder();
   runApp(MyApp());
 }
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RemindMe',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -33,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DatabaseHelper helper = DatabaseHelper.instance;
   List<Reminder>? _reminders = [];
+  bool notificationsAllowed = false;
   bool loading = true;
   void _addReminder() {
     Navigator.push(
@@ -45,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    checkPermission(context, setState, notificationsAllowed);
     getReminders();
   }
 
