@@ -6,6 +6,8 @@ A basic reminder application. Set a title, description and timing for a task and
 <img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/add.jpg" alt="Add Reminder" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/date.jpg" alt="Choose Date" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/time.jpg" alt="Choose Time" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/update.jpg" alt="Update Reminder" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/list_view.jpg" alt="List of Tasks" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/permission.jpg" alt="Permission" width="200"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/notif_in_app.jpg" alt="Notification in App" width="200"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/images/notif.jpg" alt="Notification" width="200"/>
 <hr>
 
+## Build
+Checkout the [APK](https://github.com/gagansh7171/RemindMe-MobileApp/blob/master/app-release.apk) build.
 
 ## Learning Resources
 
